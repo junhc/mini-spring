@@ -3,6 +3,7 @@ package org.springframework.test.aop;
 import org.junit.Test;
 import org.springframework.aop.AdvisedSupport;
 import org.springframework.aop.MethodMatcher;
+import org.springframework.aop.ProxyUtils;
 import org.springframework.aop.TargetSource;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.framework.JdkDynamicAopProxy;
@@ -30,5 +31,13 @@ public class DynamicProxyTest {
 
 		WorldService proxy = (WorldService) new JdkDynamicAopProxy(advisedSupport).getProxy();
 		proxy.explode();
+	}
+
+	public static void main(String[] args) throws Exception {
+		System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+
+		//ProxyUtils.generateClassFile(WorldServiceImpl.class, "WorldServiceImpl&Proxy");
+
+		new DynamicProxyTest().testJdkDynamicProxy();
 	}
 }
